@@ -4,6 +4,7 @@ from .medico import Medico
 from ..errors.custom_exception import TipoDeDatoInvalidoError, ValidacionError
 from ..utils.fechas import formatear_fecha
 
+
 class Receta:
     """
     Representa una receta médica emitida por un médico a un paciente, incluyendo los medicamentos recetados y la fecha de emisión.

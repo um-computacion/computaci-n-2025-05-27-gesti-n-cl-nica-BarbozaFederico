@@ -5,6 +5,7 @@ from src.models.paciente import Paciente
 from src.models.medico import Medico
 from src.errors.custom_exception import ValidacionError, TipoDeDatoInvalidoError
 
+
 class TestReceta(unittest.TestCase):
     def setUp(self):
         self.paciente = Paciente("Juan Perez", "12345678", datetime(1990, 1, 1))
@@ -40,6 +41,7 @@ class TestReceta(unittest.TestCase):
     def test_medicamento_vacio(self):
         with self.assertRaises(ValidacionError):
             Receta(self.paciente, self.medico, ["Paracetamol", ""])
+
 
 if __name__ == "__main__":
     unittest.main()
