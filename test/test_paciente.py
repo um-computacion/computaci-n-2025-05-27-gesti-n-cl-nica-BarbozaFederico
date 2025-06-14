@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from src.models.paciente import Paciente
 from src.errors.custom_exception import ValidacionError, TipoDeDatoInvalidoError
 
+
 class TestPaciente(unittest.TestCase):
     def test_creacion_paciente_valido(self):
         paciente = Paciente("Juan Perez", "12345678", datetime(1990, 1, 1))
@@ -42,6 +43,7 @@ class TestPaciente(unittest.TestCase):
         fecha_futura = datetime.now() + timedelta(days=1)
         with self.assertRaises(ValidacionError):
             Paciente("Juan Perez", "12345678", fecha_futura)
+
 
 if __name__ == "__main__":
     unittest.main()
