@@ -3,6 +3,7 @@ from .turno import Turno
 from .receta import Receta
 from ..errors.custom_exception import TipoDeDatoInvalidoError, ValidacionError
 
+
 class HistoriaClinica:
     """
     Clase que almacena la información médica de un paciente: turnos y recetas.
@@ -10,15 +11,15 @@ class HistoriaClinica:
 
     def __init__(self, paciente: Paciente):
         self.__asegurar_paciente_es_valido__(paciente)
-        self.__paciente__= paciente
-        self.__turnos__ : list[Turno]= []
-        self.__recetas__ : list[Receta]= []
+        self.__paciente__ = paciente
+        self.__turnos__: list[Turno] = []
+        self.__recetas__: list[Receta] = []
 
-    def agregar_turno(self, turno: Turno)->None:
+    def agregar_turno(self, turno: Turno) -> None:
         self.__asegurar_turno_es_valido__(turno)
         self.__turnos__.append(turno)
 
-    def agregar_receta(self, receta: Receta)->None:
+    def agregar_receta(self, receta: Receta) -> None:
         self.__asegurar_receta_es_valida__(receta)
         self.__recetas__.append(receta)
 
@@ -29,8 +30,16 @@ class HistoriaClinica:
         return list(self.__recetas__)
 
     def __str__(self) -> str:
-        turnos_str = "\n".join(str(t) for t in self.__turnos__) if self.__turnos__ else "Sin turnos"
-        recetas_str = "\n".join(str(r) for r in self.__recetas__) if self.__recetas__ else "Sin recetas"
+        turnos_str = (
+            "\n".join(str(t) for t in self.__turnos__)
+            if self.__turnos__
+            else "Sin turnos"
+        )
+        recetas_str = (
+            "\n".join(str(r) for r in self.__recetas__)
+            if self.__recetas__
+            else "Sin recetas"
+        )
         return (
             f"Historia Clínica de {self.__paciente__}\n"
             f"--- Turnos ---\n{turnos_str}\n"

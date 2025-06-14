@@ -7,11 +7,14 @@ from src.models.turno import Turno
 from src.models.receta import Receta
 from src.errors.custom_exception import TipoDeDatoInvalidoError
 
+
 class TestHistoriaClinica(unittest.TestCase):
     def setUp(self):
         self.paciente = Paciente("Juan Perez", "12345678", datetime(1990, 1, 1))
         self.medico = Medico("Ana Gómez", "12345")
-        self.turno = Turno(self.paciente, self.medico, datetime.now() + timedelta(days=1), "Pediatría")
+        self.turno = Turno(
+            self.paciente, self.medico, datetime.now() + timedelta(days=1), "Pediatría"
+        )
         self.receta = Receta(self.paciente, self.medico, ["Paracetamol"])
 
     def test_creacion_historia_clinica_valida(self):
@@ -45,6 +48,7 @@ class TestHistoriaClinica(unittest.TestCase):
         hc = HistoriaClinica(self.paciente)
         with self.assertRaises(TipoDeDatoInvalidoError):
             hc.agregar_receta("no_receta")
+
 
 if __name__ == "__main__":
     unittest.main()
