@@ -70,8 +70,3 @@ class Paciente:
             raise TipoDeDatoInvalidoError("La fecha de nacimiento es inválida")
         if fecha_nacimiento > datetime.now():
             raise ValidacionError("La fecha de nacimiento no puede ser mayor a hoy")
-
-
-paciente_1 = Paciente("fede", "45724146", datetime(2004, 7, 6))
-paciente_2 = Paciente("angel", "45724148", datetime(2004, 6, 3))
-print(str(paciente_1))
