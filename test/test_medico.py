@@ -3,6 +3,7 @@ from src.models.medico import Medico
 from src.models.especialidad import Especialidad
 from src.errors.custom_exception import ValidacionError, TipoDeDatoInvalidoError
 
+
 class TestMedico(unittest.TestCase):
     def test_creacion_medico_valido(self):
         medico = Medico("Ana Gómez", "12345")
@@ -51,6 +52,7 @@ class TestMedico(unittest.TestCase):
         medico.agregar_especialidad(esp)
         self.assertEqual(medico.obtener_especialidad_para_dia("LUNES"), "Pediatría")
         self.assertIsNone(medico.obtener_especialidad_para_dia("viernes"))
+
 
 if __name__ == "__main__":
     unittest.main()

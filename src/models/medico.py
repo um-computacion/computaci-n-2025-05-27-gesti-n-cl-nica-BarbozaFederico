@@ -1,6 +1,7 @@
 from .especialidad import Especialidad
 from ..errors.custom_exception import TipoDeDatoInvalidoError, ValidacionError
 
+
 class Medico:
     """
     Representa a un médico del sistema, con sus especialidades y matrícula profesional.
@@ -11,7 +12,7 @@ class Medico:
         self.__asegurar_matricula_es_valida__(matricula)
         self.__nombre__ = nombre
         self.__matricula__ = matricula
-        self.__especialidades__:list[Especialidad]= []
+        self.__especialidades__: list[Especialidad] = []
 
     def agregar_especialidad(self, especialidad: Especialidad):
         if not isinstance(especialidad, Especialidad):
@@ -28,7 +29,9 @@ class Medico:
         return None
 
     def __str__(self) -> str:
-        especialidades_str = ", ".join([esp.obtener_especialidad() for esp in self.__especialidades__])
+        especialidades_str = ", ".join(
+            [esp.obtener_especialidad() for esp in self.__especialidades__]
+        )
         return f"Médico: {self.__nombre__} - Matrícula: {self.__matricula__} - Especialidades: {especialidades_str}"
 
     def __asegurar_nombre_es_valido__(self, nombre: str) -> None:
@@ -37,7 +40,9 @@ class Medico:
         if not nombre.strip():
             raise ValidacionError("El nombre del médico no puede estar vacío")
         if len(nombre) > 50:
-            raise ValidacionError("El nombre del médico debe tener menos de 50 caracteres")
+            raise ValidacionError(
+                "El nombre del médico debe tener menos de 50 caracteres"
+            )
 
     def __asegurar_matricula_es_valida__(self, matricula: str) -> None:
         if not isinstance(matricula, str):
