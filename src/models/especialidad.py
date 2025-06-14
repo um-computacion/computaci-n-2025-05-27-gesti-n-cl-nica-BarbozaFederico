@@ -1,5 +1,6 @@
 from ..errors.custom_exception import TipoDeDatoInvalidoError, ValidacionError
 
+
 class Especialidad:
     """
     Representa una especialidad médica junto con los días de atención asociados.
@@ -32,7 +33,9 @@ class Especialidad:
         if not tipo.strip():
             raise ValidacionError("El nombre de la especialidad no puede estar vacío")
         if len(tipo) > 50:
-            raise ValidacionError("El nombre de la especialidad debe tener menos de 50 caracteres")
+            raise ValidacionError(
+                "El nombre de la especialidad debe tener menos de 50 caracteres"
+            )
 
     def __asegurar_dias_es_valido__(self, dias: list[str]) -> None:
         """

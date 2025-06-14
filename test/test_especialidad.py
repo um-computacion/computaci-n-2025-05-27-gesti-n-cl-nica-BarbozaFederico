@@ -2,6 +2,7 @@ import unittest
 from src.models.especialidad import Especialidad
 from src.errors.custom_exception import ValidacionError, TipoDeDatoInvalidoError
 
+
 class TestEspecialidad(unittest.TestCase):
     def test_creacion_especialidad_valida(self):
         esp = Especialidad("Pediatría", ["lunes", "miércoles", "viernes"])
@@ -45,6 +46,7 @@ class TestEspecialidad(unittest.TestCase):
     def test_verificar_dia_false(self):
         esp = Especialidad("Pediatría", ["lunes", "miércoles"])
         self.assertFalse(esp.verificar_dia("viernes"))
+
 
 if __name__ == "__main__":
     unittest.main()
