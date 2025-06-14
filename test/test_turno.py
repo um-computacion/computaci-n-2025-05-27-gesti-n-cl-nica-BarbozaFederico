@@ -5,6 +5,7 @@ from src.models.paciente import Paciente
 from src.models.medico import Medico
 from src.errors.custom_exception import ValidacionError, TipoDeDatoInvalidoError
 
+
 class TestTurno(unittest.TestCase):
     def setUp(self):
         self.paciente = Paciente("Juan Perez", "12345678", datetime(1990, 1, 1))
@@ -47,6 +48,7 @@ class TestTurno(unittest.TestCase):
     def test_especialidad_larga(self):
         with self.assertRaises(ValidacionError):
             Turno(self.paciente, self.medico, self.fecha_futura, "a" * 51)
+
 
 if __name__ == "__main__":
     unittest.main()

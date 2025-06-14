@@ -4,12 +4,19 @@ from .medico import Medico
 from ..errors.custom_exception import TipoDeDatoInvalidoError, ValidacionError
 from ..utils.fechas import formatear_fecha
 
+
 class Turno:
     """
     Representa un turno médico entre un paciente y un médico para una especialidad específica en una fecha y hora determinada.
     """
 
-    def __init__(self, paciente: Paciente, medico: Medico, fecha_hora: datetime, especialidad: str):
+    def __init__(
+        self,
+        paciente: Paciente,
+        medico: Medico,
+        fecha_hora: datetime,
+        especialidad: str,
+    ):
         self.__asegurar_paciente_es_valido__(paciente)
         self.__asegurar_medico_es_valido__(medico)
         self.__asegurar_fecha_hora_es_valida__(fecha_hora)
@@ -54,4 +61,3 @@ class Turno:
             raise ValidacionError("La especialidad no puede estar vacía")
         if len(especialidad) > 50:
             raise ValidacionError("La especialidad debe tener menos de 50 caracteres")
-        
