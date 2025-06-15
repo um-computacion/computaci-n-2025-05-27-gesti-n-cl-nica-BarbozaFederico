@@ -11,8 +11,9 @@ from ..errors.excepciones_clinica import (
     MedicoNoEncontradoError,
     MedicoYaRegistradoError,
     TurnoOcupadoError,
-    MedicoNoDisponibleError
+    MedicoNoDisponibleError,
 )
+
 
 class Clinica:
     """
@@ -24,7 +25,7 @@ class Clinica:
         pacientes: dict[str, Paciente],
         medicos: dict[str, Medico],
         turnos: list[Turno],
-        historias_clinicas: dict[str, HistoriaClinica]
+        historias_clinicas: dict[str, HistoriaClinica],
     ):
         if not isinstance(pacientes, dict):
             raise TipoDeDatoInvalidoError("pacientes debe ser un diccionario")
@@ -62,7 +63,9 @@ class Clinica:
         self.validar_existencia_medico(matricula)
         return self.__medicos__[matricula]
 
-    def agendar_turno(self, dni: str, matricula: str, especialidad: str, fecha_hora: datetime):
+    def agendar_turno(
+        self, dni: str, matricula: str, especialidad: str, fecha_hora: datetime
+    ):
         self.validar_existencia_paciente(dni)
         self.validar_existencia_medico(matricula)
         self.validar_turno_no_duplicado(matricula, fecha_hora)
@@ -99,11 +102,22 @@ class Clinica:
 
     def validar_turno_no_duplicado(self, matricula: str, fecha_hora: datetime):
         for turno in self.__turnos__:
-            if turno.obtener_medico().obtener_matricula() == matricula and turno.obtener_fecha_hora() == fecha_hora:
+            if (
+                turno.obtener_medico().obtener_matricula() == matricula
+                and turno.obtener_fecha_hora() == fecha_hora
+            ):
                 raise TurnoOcupadoError()
 
     def obtener_dia_semana_en_espanol(self, fecha_hora: datetime) -> str:
-        dias = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
+        dias = [
+            "lunes",
+            "martes",
+            "miércoles",
+            "jueves",
+            "viernes",
+            "sábado",
+            "domingo",
+        ]
         return dias[fecha_hora.weekday()]
 
     def obtener_especialidad_disponible(self, medico: Medico, dia_semana: str) -> str:
@@ -112,7 +126,9 @@ class Clinica:
             raise MedicoNoDisponibleError(medico.obtener_matricula(), dia_semana)
         return especialidad
 
-    def validar_especialidad_en_dia(self, medico: Medico, especialidad_solicitada: str, dia_semana: str):
+    def validar_especialidad_en_dia(
+        self, medico: Medico, especialidad_solicitada: str, dia_semana: str
+    ):
         especialidad = medico.obtener_especialidad_para_dia(dia_semana)
         if especialidad is None or especialidad != especialidad_solicitada:
             raise MedicoNoDisponibleError(medico.obtener_matricula(), dia_semana)
