@@ -3,7 +3,12 @@ from src.models.clinica import Clinica
 from src.models.paciente import Paciente
 from src.models.medico import Medico
 from src.models.especialidad import Especialidad
-from src.errors.custom_exception import CustomException, TipoDeDatoInvalidoError, ValidacionError
+from src.errors.custom_exception import (
+    CustomException,
+    TipoDeDatoInvalidoError,
+    ValidacionError,
+)
+
 
 class CLI:
     def __init__(self, clinica: Clinica):
@@ -26,23 +31,31 @@ class CLI:
         while True:
             fecha_str = input(mensaje).strip()
             if not fecha_str:
-                print(" Error: La fecha no puede estar vacía. Formato esperado: dd-mm-yyyy")
+                print(
+                    " Error: La fecha no puede estar vacía. Formato esperado: dd-mm-yyyy"
+                )
                 continue
             try:
                 return datetime.strptime(fecha_str, "%d-%m-%Y")
             except ValueError:
-                print(" Error: Formato de fecha inválido. Use el formato dd-mm-yyyy (ejemplo: 25-12-2000)")
+                print(
+                    " Error: Formato de fecha inválido. Use el formato dd-mm-yyyy (ejemplo: 25-12-2000)"
+                )
 
     def solicitar_fecha_hora(self, mensaje="Ingrese fecha y hora (dd-mm-yyyy hh-mm): "):
         while True:
             fecha_str = input(mensaje).strip()
             if not fecha_str:
-                print(" Error: La fecha y hora no pueden estar vacías. Formato esperado: dd-mm-yyyy hh-mm")
+                print(
+                    " Error: La fecha y hora no pueden estar vacías. Formato esperado: dd-mm-yyyy hh-mm"
+                )
                 continue
             try:
                 return datetime.strptime(fecha_str, "%d-%m-%Y %H-%M")
             except ValueError:
-                print(" Error: Formato de fecha y hora inválido. Use el formato dd-mm-yyyy hh-mm (ejemplo: 25-12-2024 14-30)")
+                print(
+                    " Error: Formato de fecha y hora inválido. Use el formato dd-mm-yyyy hh-mm (ejemplo: 25-12-2024 14-30)"
+                )
 
     def solicitar_entrada_no_vacia(self, mensaje):
         while True:
@@ -78,11 +91,15 @@ class CLI:
                     print("Hasta luego!")
                     break
                 else:
-                    print(" Opción inválida. Por favor, seleccione una opción del 0 al 9.")
+                    print(
+                        " Opción inválida. Por favor, seleccione una opción del 0 al 9."
+                    )
             except CustomException as e:
                 print(f" Error: {e}")
             except Exception as e:
-                print(" Error inesperado: Algo salió mal. Por favor, intente nuevamente.")
+                print(
+                    " Error inesperado: Algo salió mal. Por favor, intente nuevamente."
+                )
 
     def agregar_paciente(self):
         print("\n--- Agregar Paciente ---")
@@ -98,33 +115,35 @@ class CLI:
         nombre = self.solicitar_entrada_no_vacia("Nombre: ")
         matricula = self.solicitar_entrada_no_vacia("Matrícula: ").lower()
         medico = Medico(nombre, matricula)
-        
+
         print("Agregue especialidades (deje vacío para terminar):")
         while True:
             tipo = input("Especialidad: ").strip()
             if not tipo:
                 break
-            
+
             while True:
-                dias = input("Días de atención (separados por coma,sin tildes y en plural, ej: lunes,martes,miercoles,sabados,domingos): ").strip()
+                dias = input(
+                    "Días de atención (separados por coma,sin tildes y en plural, ej: lunes,martes,miercoles,sabados,domingos): "
+                ).strip()
                 if not dias:
                     print(" Error: Debe ingresar al menos un día de atención.")
                     continue
-                    
+
                 dias_lista = []
                 for dia in dias.split(","):
                     dia_limpio = dia.strip().lower()
                     if dia_limpio:
                         dias_lista.append(dia_limpio)
-                
+
                 if dias_lista:
                     break
                 print(" Error: No se encontraron días válidos. Intente nuevamente.")
-            
+
             especialidad = Especialidad(tipo.lower(), dias_lista)
             medico.agregar_especialidad(especialidad)
             print(f"✓ Especialidad '{tipo}' agregada.")
-        
+
         self.clinica.agregar_medico(medico)
         print("✓ Médico agregado correctamente.")
 
@@ -142,23 +161,25 @@ class CLI:
         matricula = self.solicitar_entrada_no_vacia("Matrícula del médico: ").lower()
         medico = self.clinica.obtener_medico_por_matricula(matricula)
         tipo = self.solicitar_entrada_no_vacia("Especialidad: ").lower()
-        
+
         while True:
-            dias = input("Días de atención (separados por coma,sin tildes y en plural, ej: lunes,martes,miercoles,sabados,domingos): ").strip()
+            dias = input(
+                "Días de atención (separados por coma,sin tildes y en plural, ej: lunes,martes,miercoles,sabados,domingos): "
+            ).strip()
             if not dias:
                 print(" Error: Debe ingresar al menos un día de atención.")
                 continue
-                
+
             dias_lista = []
             for dia in dias.split(","):
                 dia_limpio = dia.strip().lower()
                 if dia_limpio:
                     dias_lista.append(dia_limpio)
-            
+
             if dias_lista:
                 break
             print(" Error: No se encontraron días válidos. Intente nuevamente.")
-        
+
         especialidad = Especialidad(tipo, dias_lista)
         medico.agregar_especialidad(especialidad)
         print("✓ Especialidad agregada correctamente.")
@@ -167,23 +188,23 @@ class CLI:
         print("\n--- Emitir Receta ---")
         dni = self.solicitar_entrada_no_vacia("DNI del paciente: ")
         matricula = self.solicitar_entrada_no_vacia("Matrícula del médico: ").lower()
-        
+
         while True:
             medicamentos = input("Medicamentos (separados por coma): ").strip()
             if not medicamentos:
                 print(" Error: Debe ingresar al menos un medicamento.")
                 continue
-                
+
             lista_medicamentos = []
             for med in medicamentos.split(","):
                 med_limpio = med.strip()
                 if med_limpio:
                     lista_medicamentos.append(med_limpio)
-            
+
             if lista_medicamentos:
                 break
             print(" Error: No se encontraron medicamentos válidos. Intente nuevamente.")
-        
+
         self.clinica.emitir_receta(dni, matricula, lista_medicamentos)
         print("✓ Receta emitida correctamente.")
 
