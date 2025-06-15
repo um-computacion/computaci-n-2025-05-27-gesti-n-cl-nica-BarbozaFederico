@@ -112,11 +112,11 @@ class Clinica:
         dias = [
             "lunes",
             "martes",
-            "miércoles",
+            "miercoles",
             "jueves",
             "viernes",
-            "sábado",
-            "domingo",
+            "sabados",
+            "domingos",
         ]
         return dias[fecha_hora.weekday()]
 
