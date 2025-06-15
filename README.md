@@ -1,11 +1,17 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/y_fEcNZn)
 # 🏥 Sistema de Gestión para una Clínica
+
+## Documentación del sistema 
+
+- [Especificaciones de diseño](/docs/design-specifications.md)
+- [Instrucciones para el uso del sistema](/docs/usage.md)
 
 ## 👤 Información del Alumno
 
 ### 📋 Datos Personales
-- **Nombre y Apellido**: [Completar con nombre y apellido]
+- **Nombre y Apellido**: Federico Barboza
 - **Ciclo Lectivo**: 2025
-- **Carrera**: [Completar con nombre de la carrera]
+- **Carrera**: Ing.Infomática
 
 ## ⏰ Información Importante sobre la Entrega
 
